@@ -56,7 +56,7 @@ const StyledInput2 = styled.input`
 export const Login = () => {
   const { login } = useContext(AuthContext);
   const [form, setForm] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const handleChange = (e) => {
@@ -80,7 +80,7 @@ export const Login = () => {
       })
       .catch((err) => console.log(err));
   };
-  const { email, password } = form;
+  const { username, password } = form;
   return (
     <Wrapper>
       <h3>Login</h3>
@@ -90,16 +90,16 @@ export const Login = () => {
         <form className="Form" onSubmit={handleSubmit}>
           {/* <h1>Login</h1> */}
           <StyledInput
-            type="email"
-            name="email"
-            placeholder="email"
-            value={email}
+            type="text"
+            name="username"
+            placeholder="username"
+            value={username}
             onChange={handleChange}
             required
           />
           <br />
           <StyledInput
-            type="text"
+            type="password"
             name="password"
             placeholder="Password"
             value={password}

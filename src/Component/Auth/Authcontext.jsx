@@ -1,30 +1,32 @@
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { isAuthAccount } from "../Redux/Action/action";
+import { useDispatch } from "react-redux";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(false);
+  const dispatch = useDispatch ();
   const [token, setToken] = useState("");
   const navigate = useNavigate();
 
   const login = (token) => {
     if (token !== undefined) {
       console.log("token", token);
-      setIsAuth(true);
+      dispatch(isAuthAccount(true));
       setToken(token);
       navigate(`/`);
     }
   };
 
   const logout = () => {
-    setIsAuth(false);
+    dispatch(isAuthAccount(false));
     // localStorage.clear();
     // localStorage.removeItem("Token");
   };
 
   return (
-    <AuthContext.Provider value={{ login, logout, isAuth, token }}>
+    <AuthContext.Provider value={{ login, logout, token }}>
       {children}
     </AuthContext.Provider>
   );

@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "./Auth/Authcontext";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   background-image: linear-gradient(
@@ -47,23 +48,26 @@ const StyleTable = styled.table`
   td {
     border: 2px solid black;
     width: 20vw;
-    color:black;
-    font-weight:600;
+    color: black;
+    font-weight: 600;
   }
 `;
 
 export const Employees = () => {
   const [data, setData] = useState([]);
-  const { isAuth, logout } = useContext(AuthContext);
+  const {  logout } = useContext(AuthContext);
+  const isauth = useSelector((state) => state.isauth);
+  // const { logout } = useContext(AuthContext);
+
   useEffect(() => {
     fetch("http://localhost:3001/employess")
       .then((res) => res.json())
       .then((res) => setData(res))
       .catch((err) => console.log(err));
   }, []);
-  // if (!isAuth) {
-  //   return <Navigate to="/login" />;
-  // }
+  if (!isauth) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <Container>
@@ -72,8 +76,8 @@ export const Employees = () => {
       <StyleTable>
         <thead>
           <tr>
-            <th>Product Name</th>
-            <th>Price</th>
+            <th>Name</th>
+            <th>Department</th>
             <th>More Details...</th>
           </tr>
         </thead>

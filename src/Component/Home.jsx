@@ -1,11 +1,16 @@
 import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "./Auth/Authcontext";
+import { Employees } from "./Employees";
 
 export const Home = () => {
-  const { isAuth, logout } = useContext(AuthContext);
-  if (!isAuth) {
-    return <Navigate to="/login" />;
-  }
-  return <div>Home</div>;
+  const isauth = useSelector((state) => state.isauth);
+  // const { logout } = useContext(AuthContext);
+
+  // if (!isauth) {
+  //   return <Navigate to="/login" />;
+  // }
+  return <div>
+    <Employees/>
+  </div>;
 };
